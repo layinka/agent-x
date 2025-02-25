@@ -13,17 +13,22 @@ OPENAI_API_KEY="YOUR_OPENAI_API_KEY"
 2. Run the following commands from the root directory of the AI SDK repo:
 
 ```sh
-pnpm install
+npm install
 ```
 
 3. Run the following command:
 
 ```sh
-pnpm run start:dev
+npm run start:dev
 ```
 
 4. Test the endpoint with Curl:
 
 ```sh
-curl -X POST http://localhost:8181
+curl -X GET http://localhost:8181
 ```
+
+
+## Swagger/Open API
+
+`http://localhost:8181/api`
