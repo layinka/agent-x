@@ -16,6 +16,7 @@ import { http } from "viem";
 import { getOnChainTools } from "@goat-sdk/adapter-vercel-ai";
 import { viem } from "@goat-sdk/wallet-viem";
 import 'dotenv/config';
+import { ConfigService } from '@nestjs/config';
 
 // const privateKey = generatePrivateKey()
 // console.log('priva key:', process.env.WALLET_PRIVATE_KEY??'No Key in ENV' )
@@ -42,6 +43,12 @@ const hyperbolicProvider = createOpenAICompatible({
 
 @Controller()
 export class AppController {
+  constructor(private configService: ConfigService){
+    console.log('priva key:', process.env.WALLET_PRIVATE_KEY??'No Key in ENV', ', config key 1: ',
+       this.configService.get<string>('WALLET_PRIVATE_KEY') , 
+       ', Encrypt key: ', this.configService.get<string>('ENCRYPTION_KEY'), 
+       this.configService.get<string>('ENCRYPTION_KEY').length )
+  }
   @Get('/')
   async root(@Res() res: Response) {
     // return res.status(200).send({

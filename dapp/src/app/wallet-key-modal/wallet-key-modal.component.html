@@ -1,0 +1,23 @@
+<div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">A Wallet Has been created for you</h4>
+    <button type="button" class="btn-close" aria-label="Close" (click)="activeModal.dismiss('Cross click')"></button>
+</div>
+<div class="modal-body">
+    <div>
+        <h3>Save your Wallet Private Key</h3>
+        <h4>This Wallet Private Key will only be shown once. Save now to ensure you always have access to this wallet</h4>
+
+        <div>
+            <div>Wallet Address: {{address}}
+                <div><small>You can always transfer to this address</small></div>
+            </div>
+
+            <div>Wallet Secret Key: {{secretKey}}
+                <div><small>Copy and Save this somewhere</small></div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal-footer">
+    <button type="button" class="btn btn-outline-secondary" (click)="activeModal.dismiss('close')">Close</button>
+</div>

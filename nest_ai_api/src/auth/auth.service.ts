@@ -1,7 +1,9 @@
 import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { OAuth2Client } from 'google-auth-library';
+import { EncryptionService } from 'src/encryption/encryption.service';
 import { UserEntity } from 'src/users/users/user.entity';
 import { UsersService } from 'src/users/users/users.service';
+import { generatePrivateKey, privateKeyToAccount } from 'viem/accounts';
 
 @Injectable()
 export class AuthService {
@@ -11,6 +13,7 @@ export class AuthService {
     );
   constructor(
     private readonly usersService: UsersService,
+    private readonly encryptionService: EncryptionService
     // private readonly configService: ConfigService,
     // private readonly authenticationService: AuthenticationService
   ) {
@@ -71,17 +74,29 @@ export class AuthService {
   }
 
   async registerUser(name: string, email: string) {
-    
-    const user = await this.usersService.create({
-      id:0,
-      email: email.trim(),
-      normalizedEmail: email.trim().toUpperCase()
-    });
 
-    return this.handleRegisteredUser(user);
+    const privateKey = generatePrivateKey()
+    // console.log('priva key:', process.env.WALLET_PRIVATE_KEY??'No Key in ENV' )
+    // console.log('priva key:', privateKey )
+
+    const newUser = new UserEntity();
+    newUser.email = email.trim(),
+    newUser.normalizedEmail = email.trim().toUpperCase(),
+    newUser.walletSecret = this.encryptionService.encrypt( privateKey),
+    newUser.walletAddress = privateKeyToAccount(privateKey).address
+    
+    const user = await this.usersService.create(newUser);
+    console.log('newUser:', newUser )
+
+    console.log('savedUser:', user )
+    return {
+      user: await this.handleRegisteredUser(user),
+      privateKey
+    } 
   }
 
   async authenticate(token: string) {
+    
     const ticket = await this.googleOauthClient.verifyIdToken({
       idToken: token,
       audience: process.env.GOOGLE_CLIENT_ID
@@ -92,13 +107,17 @@ export class AuthService {
     try {
       const user = await this.usersService.getUserByEmail(email);
 
-      return this.handleRegisteredUser(user);
+      return {
+        user: await this.handleRegisteredUser(user),
+        privateKey: ''
+      }
     } catch (error) {
-      if (error.status !== 404) {
+      console.error('Error: ', error)
+      if (error && error.status && error.status !== 404) {
         throw new error;
       }
 
-      return this.registerUser(name, email);
+      return await this.registerUser(name, email);
     }
   }
 
