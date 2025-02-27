@@ -3,6 +3,7 @@ import { InjectRepository } from '@nestjs/typeorm'
 import { Repository } from 'typeorm';
 import { UpdateResult, DeleteResult } from 'typeorm';;
 import { UserEntity } from './user.entity'
+import { plainToInstance } from 'class-transformer';
 
 @Injectable()
 export class UsersService {
@@ -12,15 +13,18 @@ export class UsersService {
   ) { }
 
   async findAll(): Promise<UserEntity[]> {
-    return await this.userRepository.find();
+    var users =  await this.userRepository.find();
+    return users;// plainToInstance(UserEntity, users, { excludeExtraneousValues: true });
   }
 
   async getUserByEmail(email: string): Promise<UserEntity> {
-    return await this.userRepository.findOne({ 
+    var user =  await this.userRepository.findOne({ 
       where: {
-        normalizedEmail: email.toUpperCase()
+        normalizedEmail: email.trim().toUpperCase()
       }
     });
+
+    return user; // plainToInstance(UserEntity, user, { excludeExtraneousValues: true });
   }
 
   async create(entity: UserEntity): Promise<UserEntity> {

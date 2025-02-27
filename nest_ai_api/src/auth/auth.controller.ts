@@ -14,8 +14,9 @@ export class AuthController {
     
   @Post()
   async loginWithGoogle(@Body() tokenData: TokenVerificationDto, @Req() request: Request) {
-    const user = await this.authService.authenticate(tokenData.token);
-    return user;
+    const userDetails = await this.authService.authenticate(tokenData.token);
+    console.log('userDetails:', userDetails );
+    return userDetails;
   }
 }
 

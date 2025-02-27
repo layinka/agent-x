@@ -1,3 +1,4 @@
 /dapp/src/environments/environment.development.ts
 /dapp/src/environments/environment.production.ts
 
+/nest_ai_api/db

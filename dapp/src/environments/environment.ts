@@ -4,5 +4,6 @@ export const environment = {
     reownProjectId: 'rtt',
     
     cryptoCompareApiKey: '09',
-    graphQl: 'http://localhost:42069/'
+    graphQl: 'http://localhost:42069/',
+    googleClientId: ''
 };
