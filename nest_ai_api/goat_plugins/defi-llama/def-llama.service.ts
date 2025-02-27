@@ -7,7 +7,7 @@ import {
   filterPoolByExposure,
   filterPoolByIlRisk,
   filterPoolByOutlier,
-  filterPoolByPrediction,
+  // filterPoolByPrediction,
   filterPoolByRewardTokens,
   filterPoolByStableCoin,
   filterPoolByTvl,
@@ -68,7 +68,7 @@ export class DefiLlamaService {
   }
 
   @Tool({
-    name: 'fetch_defi_llama_pools',
+    name: 'fetch_defi_llama_by_apy',
     description: 'Fetch Defi Llama Pools',
   })
   async fetchAndFilterPoolByApy(apy: number): Promise<any[]> {
@@ -82,7 +82,7 @@ export class DefiLlamaService {
   }
 
   @Tool({
-    name: 'fetch_defi_llama_pools',
+    name: 'fetch_defi_llama_by_tvl',
     description: 'Fetch Defi Llama Pools',
   })
   async fetchAndfilterPoolByTvl(tvl: number): Promise<any[]> {
@@ -96,7 +96,7 @@ export class DefiLlamaService {
   }
 
   @Tool({
-    name: 'fetch_defi_llama_pools',
+    name: 'fetch_defi_llama_by_reward_tokens',
     description: 'Fetch Defi Llama Pools',
   })
   async fetchAndFilterPoolByRewardTokens(rewardTokens: any): Promise<any[]> {
@@ -110,7 +110,7 @@ export class DefiLlamaService {
   }
 
   @Tool({
-    name: 'fetch_defi_llama_pools',
+    name: 'fetch_defi_llama_by_ilrisk',
     description: 'Fetch Defi Llama Pools',
   })
   async fetchAndFilterPoolByIlRisk(ilRisk: string): Promise<any[]> {
@@ -124,7 +124,7 @@ export class DefiLlamaService {
   }
 
   @Tool({
-    name: 'fetch_defi_llama_pools',
+    name: 'fetch_defi_llama_by_expopsure',
     description: 'Fetch Defi Llama Pools',
   })
   async fetchAnFilterPoolByExposure(exposure: string): Promise<any[]> {
@@ -138,7 +138,7 @@ export class DefiLlamaService {
   }
 
   @Tool({
-    name: 'fetch_defi_llama_pools',
+    name: 'fetch_defi_llama_by_stablecoin',
     description: 'Fetch Defi Llama Pools',
   })
   async fetcAndFilterpoolByStablecoin(stablecoin: boolean): Promise<any[]> {
@@ -166,7 +166,7 @@ export class DefiLlamaService {
   // }
 
   @Tool({
-    name: 'fetch_defi_llama_pools',
+    name: 'fetch_defi_llama_by_outlier',
     description: 'Fetch Defi Llama Pools',
   })
   async fetcAndFilterpoolByOutlier(outlier: boolean): Promise<any[]> {
@@ -180,7 +180,7 @@ export class DefiLlamaService {
   }
 
   @Tool({
-    name: 'fetch_defi_llama_pools',
+    name: 'fetch_defi_llama_by_underlying_tokens',
     description: 'Fetch Defi Llama Pools',
   })
   async fetcAndFilterpoolByUnderlyingTokens(
@@ -196,7 +196,7 @@ export class DefiLlamaService {
   }
 
   @Tool({
-    name: 'fetch_defi_llama_pools',
+    name: 'fetch_defi_llama_by_volume1d',
     description: 'Fetch Defi Llama Pools',
   })
   async fetcAndFilterpoolByVolume1Days(days: any): Promise<any[]> {
@@ -210,7 +210,7 @@ export class DefiLlamaService {
   }
 
   @Tool({
-    name: 'fetch_defi_llama_pools',
+    name: 'fetch_defi_llama_by_volume7d',
     description: 'Fetch Defi Llama Pools',
   })
   async fetcAndFilterpoolByVolume7Days(days: any): Promise<any[]> {
