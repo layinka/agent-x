@@ -1,17 +1,20 @@
 import { Component, inject } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import { RouterLink, RouterOutlet } from '@angular/router';
 import { NgxSpinnerModule, NgxSpinnerService } from 'ngx-spinner';
 import { ToastsComponent } from './toasts/toasts.component';
 import { GoogleLoginProvider, GoogleSigninButtonDirective, SocialAuthService, SocialUser } from '@abacritt/angularx-social-login';
 import { NgIf } from '@angular/common';
 import { ApiService } from './services/api.service';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { NgbDropdown, NgbDropdownItem, NgbDropdownModule, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { WalletKeyModalComponent } from './wallet-key-modal/wallet-key-modal.component';
+import { UserService } from './services/user.service';
 
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, NgxSpinnerModule, ToastsComponent, GoogleSigninButtonDirective, NgIf],
+  imports: [RouterOutlet, RouterLink, NgxSpinnerModule, ToastsComponent, GoogleSigninButtonDirective, NgIf, 
+     NgbDropdownModule
+  ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
 })
@@ -21,6 +24,7 @@ export class AppComponent {
   authService = inject( SocialAuthService)
   apiService = inject(ApiService)
   private modalService = inject(NgbModal);
+  userService =inject (UserService);
 
   user?: SocialUser;
   loggedIn: boolean=false;
@@ -33,14 +37,24 @@ export class AppComponent {
     this.authService.authState.subscribe(async (user) => {
       this.user = user;
       this.loggedIn = (user != null);
-      console.log('USR::', user)
-
+      
       if(this.loggedIn){
-        // const authToken = await this.authService.getAccessToken(GoogleLoginProvider.PROVIDER_ID);
+        const authToken = await this.authService.getAccessToken(GoogleLoginProvider.PROVIDER_ID);
 
         this.apiService.signupOnServerWithGoogle(user.idToken).subscribe((userData: any)=>{
           console.log('userData::', userData)
-          if(true || (userData.privateKey && userData.privateKey.startsWith('0x') ) ){
+          this.userService.setUserDetails(authToken, {
+            idToken: user.idToken,
+            email: user.email,
+            firstName:user.firstName,
+            lastName: user.lastName,
+            name: user.lastName,
+            id: userData.user.id,
+            photoUrl: user.photoUrl,
+            walletAddress: userData.user.walletAddress
+          });
+
+          if( (userData.privateKey && userData.privateKey.startsWith('0x') ) ){
             // showPrivate key
             const modalRef = this.modalService.open(WalletKeyModalComponent, {
               backdrop: 'static'

@@ -19,7 +19,7 @@ export const appConfig: ApplicationConfig = {
   providers: [
     provideZoneChangeDetection({ eventCoalescing: true }), 
     provideRouter(routes),
-    provideHttpClient(withFetch(), ), // withInterceptors([AuthInterceptorService, ])
+    provideHttpClient(withFetch(),  withInterceptors([AuthInterceptorService, ])),
     provideAnimationsAsync(),
     CommonModule,
     NgxSpinnerModule, 
@@ -29,7 +29,7 @@ export const appConfig: ApplicationConfig = {
     {
       provide: 'SocialAuthServiceConfig',
       useValue: {
-        autoLogin: false,
+        autoLogin: true,
         lang: 'en',
         providers: [
           {
@@ -39,7 +39,8 @@ export const appConfig: ApplicationConfig = {
               {
                 oneTapEnabled: true,
                 scopes: 'openid profile email',
-                prompt: ''
+                // prompt: '',
+
               }
             )
           },

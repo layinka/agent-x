@@ -4,42 +4,36 @@ import { catchError, switchMap } from 'rxjs/operators';
 import { from, throwError } from 'rxjs';
 import { HttpInterceptorFn } from '@angular/common/http';
 import { GoogleLoginProvider, SocialAuthService } from '@abacritt/angularx-social-login';
+import { UserService } from './user.service';
 
 export const AuthInterceptorService: HttpInterceptorFn = (request, next) => {
-  const authService = inject(SocialAuthService);
+  
+  const userService = inject(UserService);
 
-  if (
-    request.url.startsWith('http://localhost:') ||
-    request.url.startsWith('https://localhost:') ||
-    request.url.startsWith('https://agentx') ||
-    request.url.startsWith('https://api.agentx')
-  ) {
-    return from(authService.getAccessToken(GoogleLoginProvider.PROVIDER_ID)).pipe(
-      switchMap((token) => {
-        request = request.clone({
-          setHeaders: {
-            authorization: `Bearer ${token || ''}`,
-          },
-        });
-        return next(request);
-      }),
-      catchError((error: any) => {
-        if (error instanceof HttpErrorResponse && error.status === 401) {
-          authService.signOut();
-        }
-        return throwError(() => error);
-      })
-    );
+  if(userService.isLoggedIn && ( request.url.startsWith('http://localhost:') || request.url.startsWith('https://localhost:') || request.url.startsWith('https://agentx') ||  request.url.startsWith('https://api.agentx')) ) {
+    
+    request = request.clone({
+      setHeaders: {
+        'authorization': `Bearer ${userService.authToken || ''}`,
+        // 'client-time': new Date().toISOString()
+      }
+    });
   }
 
-  return next(request).pipe(
-    catchError((error: any) => {
-      if (error instanceof HttpErrorResponse && error.status === 401) {
-        authService.signOut();
+  return next(request)
+    .pipe(catchError((error: any) => {
+
+      if (error instanceof HttpErrorResponse) {
+        if (error.status === 401) {
+          userService.logout();
+        }
       }
-      return throwError(() => error);
-    })
-  );
+
+      return throwError(error);
+
+    }));
+
+  
 };
 
 

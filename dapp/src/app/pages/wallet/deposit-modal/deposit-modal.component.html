@@ -1,0 +1,13 @@
+  <div class="modal-header">
+    <h4 class="modal-title">Deposit {{ coin.name }}</h4>
+    <button type="button" class="close" (click)="activeModal.dismiss()">&times;</button>
+  </div>
+  <div class="modal-body">
+    <p>Send your {{ coin.symbol }} to this address:</p>
+    <code>{{ userService.userDetails?.walletAddress }}</code>
+    <p>Use the bridge if depositing from another chain.</p>
+    <!-- Add QR Code Here -->
+  </div>
+  <div class="modal-footer">
+    <button class="btn btn-secondary" (click)="activeModal.close()">Close</button>
+  </div>

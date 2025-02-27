@@ -103,22 +103,21 @@ export class AuthService {
     })
     console.log('ticket', ticket.getPayload() );
     const { email, name,  } = ticket.getPayload();
+    console.log('ticket deconstr', email, name );
+    
+    const user = await this.usersService.getUserByEmail(email);
 
-    try {
-      const user = await this.usersService.getUserByEmail(email);
-
-      return {
-        user: await this.handleRegisteredUser(user),
-        privateKey: ''
-      }
-    } catch (error) {
-      console.error('Error: ', error)
-      if (error && error.status && error.status !== 404) {
-        throw new error;
-      }
-
+    console.log('user', user);
+    if(!user){
       return await this.registerUser(name, email);
     }
+
+    return {
+      user: await this.handleRegisteredUser(user),
+      privateKey: '' // only return private key first time
+    }
+
+
   }
 
 

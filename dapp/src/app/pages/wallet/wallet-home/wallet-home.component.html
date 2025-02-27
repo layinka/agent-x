@@ -1,0 +1,33 @@
+<div class="container mt-4">
+    <h4 class="text-center">Wallet Address</h4>
+    <p class="text-center bg-light p-2 rounded">{{ userService.userDetails?.walletAddress ??' - ' }}</p>
+    
+    <h5 class="mt-4">Balances</h5>
+    <table class="table table-bordered">
+      <thead>
+        <tr>
+          <th>Token</th>
+          <th>Balance</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let coin of balances">
+          <td>{{ coin.symbol }}</td>
+          <td>{{ coin.amount }}</td>
+          <td>
+            <button class="btn btn-primary btn-sm me-2" (click)="openDepositModal(coin)">Deposit</button>
+            <button class="btn btn-danger btn-sm" (click)="openWithdrawalModal(coin)">Withdraw</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  
+    <h5 class="mt-4">Recent Transactions</h5>
+    <ul class="list-group">
+      <li class="list-group-item" *ngFor="let tx of recentTransactions">
+        <strong>{{ tx.type }}</strong> - {{ tx.amount }} {{ tx.symbol }} on {{ tx.date }}
+      </li>
+    </ul>
+  </div>
+  
