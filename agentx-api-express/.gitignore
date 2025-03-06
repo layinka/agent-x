@@ -1,0 +1,16 @@
+/*.sq3-wal
+/*.sq3
+/*.sq3-shm
+
+# compiled output
+.vscode
+/node_modules
+
+# code formatter
+.eslintrc
+.eslintignore
+.editorconfig
+.huskyrc
+.lintstagedrc.json
+.prettierrc
+
