@@ -5,7 +5,7 @@ AgentX is an AI agent that can chat with users and also work round-the-clock to 
 
 Imagine an AI agent is like "Yearn Finance Dapp" but can chat with you, learn from your risk preferences, DeFi announcements, public discussions and maximize your DEFI yeilds for you across top yeild opportunities, while you're sleeping or driving.
 
-## DEFI Yield Challenges That We Are Addressing
+## DEFI Challenges That We Are Addressing
 ### Evaluation Complexity
 - There are several protocols, pools and strategies.
 ### Risk Management
@@ -14,8 +14,8 @@ Imagine an AI agent is like "Yearn Finance Dapp" but can chat with you, learn fr
 - Challenging to monitor DEFI announcements, discussions and charts, 24/7, for rapid adaptation to dynamic yield opportunities.
 
 ## Solutions
-- DeFi yield optimization across lending, staking and liquidity pools
-- Dynamic asset allocations
+- DeFi yield optimization across lending, staking and liquidity pools.
+- Dynamic asset allocations.
 - Automated rebalancing/auto-compounding.
 
 ### Tools/Frameworks
