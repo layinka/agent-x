@@ -1,9 +1,10 @@
 # Agent X API
 Yield optimization assistant on Sonic.
+
 Maximize returns on your investment.
 
 # DEFI yield Challenges that we are addressing;
-# • Evaluation complexity
+## Evaluation complexity
 - There are several protocols, pools and strategies.
 # • Risk Management
 - Challenging to find a balance between  risk and investment returns.
