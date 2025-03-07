@@ -1,7 +1,7 @@
 ## Agent X API
 Yield optimization assistant on Sonic.
 
-Maximize returns on your investment.
+AI agent that can work round-the-clock to maximize returns on investments based on users' pre-defined preferences.
 
 ## DEFI yield Challenges that we are addressing;
 ### Evaluation complexity
@@ -14,19 +14,19 @@ Maximize returns on your investment.
 ## Solutions
 - Optimization across lending, staking and liquidity pools
 - Dynamic asset allocations
-- Automated rebalancing/autocompoundimg
+- Automated rebalancing/auto-compounding.
 
 ### Tools/Frame works
 Express JS, TypeScript, Vercel AI, Goat SDK
 
 ## Benefits to Sonic Ecosystem
-- For DeFi Expert users
-- Automate monitoring of yeild pool data
+### For DeFi Expert users
+- Automate monitoring of yeild pool data.
 - Automation of sentiment analysis across Defi announcements and public discussions on the internet.
 - Automate investment based on users' pre-defined preferences.
 
 ### For DeFi newbies
-- Abstraction of complex defi yield strategies
+- Abstraction of complex defi yield strategies.
 - Automation of investments based on pre-defined preferences.
 
 ### For Sonic and ecosystem dapps
