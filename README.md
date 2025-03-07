@@ -22,11 +22,11 @@ Imagine an AI agent is like "Yearn Finance Dapp" but can chat with you, learn fr
 Express JS, TypeScript, Vercel AI, Goat SDK
 
 ## Benefits to Sonic Ecosystem
-### For DeFi Expert users
+### For DeFi Expert on Sonic
 - Automate monitoring of yeild pool data.
 - Automation of sentiment analysis across Defi announcements and public discussions on the internet.
 - Automation of investments based on pre-defined preferences.
-### For DeFi newbies
+### For DeFi newbies on Sonic
 - AgentX can execute complex DeFi yield strategies from natural language prompts.
 - AgentX can explain DeFi yeild opportunities in natural language.
 
