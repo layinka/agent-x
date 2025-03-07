@@ -14,7 +14,7 @@ Imagine an AI agent is like "Yearn Finance Dapp" but can chat with you, learn fr
 - Challenging to monitor DEFI announcements, discussions and charts, 24/7, for rapid adaptation to dynamic yield opportunities.
 
 ## Solutions
-- Learn from each user's goals, risk tolerance and analyse market conditions in real time inorder to optimize DeFi yield across lending, staking and liquidity pools.
+- AI Agent that can learn from each user's goals, risk tolerance; and analyse market conditions in real time, inorder to optimize DeFi yield across lending, staking and liquidity pools.
 - Dynamic asset allocations.
 - Automated rebalancing/auto-compounding.
 
