@@ -25,8 +25,8 @@ Express JS, TypeScript, Vercel AI, Goat SDK
 - Automation of sentiment analysis across Defi announcements and public discussions on the internet.
 - Automation of investments based on pre-defined preferences.
 ### For DeFi newbies
-- Abstraction of complex defi yield strategies.
-- Automation of investments based on pre-defined preferences.
+- AgentX can execute complex defi yield strategies from natural language prompts.
+- AgentX can explain DeFi yeild opportunities in natural language.
 
 ### For Sonic and ecosystem dapps
 - Automated liquidity discovery.
