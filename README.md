@@ -1,7 +1,7 @@
-## Agent X API
+## Agent X
 Yield optimization assistant on Sonic.
 
-AI agent that can chat with users and also work round-the-clock to maximize returns on investments based on users' pre-defined preferences.
+AgentX is an AI agent that can chat with users and also work round-the-clock to maximize DeFi yeilds based on users' pre-defined preferences.
 
 ## DEFI yield Challenges that we are addressing;
 ### Evaluation complexity
