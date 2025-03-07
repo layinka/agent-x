@@ -23,11 +23,11 @@ Express JS, TypeScript, Vercel AI, Goat SDK
 ### For DeFi Expert users
 - Automate monitoring of yeild pool data.
 - Automation of sentiment analysis across Defi announcements and public discussions on the internet.
-- Automate investment based on users' pre-defined preferences.
-
+- Automation of investments based on pre-defined preferences.
 ### For DeFi newbies
 - Abstraction of complex defi yield strategies.
 - Automation of investments based on pre-defined preferences.
 
 ### For Sonic and ecosystem dapps
-- To Automate liquidity connections based on DEFI yield farmers' pre-defined preferences.
+- Automated liquidity discovery.
+- Automated liquidity connections.
