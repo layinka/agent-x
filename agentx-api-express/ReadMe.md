@@ -16,7 +16,7 @@ Maximize returns on your investment.
 - Dynamic asset allocations
 - Automated rebalancing/autocompoundimg
 
-## Tools/Frame works
+### Tools/Frame works
 Express JS, TypeScript, Vercel AI, Goat SDK
 
 ## Benefits to Sonic Ecosystem
