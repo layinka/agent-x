@@ -1,5 +1,4 @@
-# Agent X API
-## Express JS, TypeScript, Vercel AI, Goat SDK
+## AgentX API
 
 ## Run
 - Install Packages `npm install`
