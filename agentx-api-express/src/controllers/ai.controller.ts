@@ -30,6 +30,8 @@ import { UserPromptDTO } from '@/dtos/ai.dto';
 import { randomUUID } from 'node:crypto';
 import { PluginBase } from '@goat-sdk/core';
 import { createMistral } from '@ai-sdk/mistral';
+import { defillama, DefiLlamaPlugin } from '@/goat_plugins/defi-llama';
+import { debridge } from "@goat-sdk/plugin-debridge";
 
 // const privateKey = generatePrivateKey()
 // console.log('priva key:', process.env.WALLET_PRIVATE_KEY??'No Key in ENV' )
@@ -110,6 +112,8 @@ export class AIController {
           // sendETH(), 
           sendETH()  as unknown as PluginBase<EVMWalletClient>, 
           erc20({ tokens: [USDC, MODE] }), 
+          defillama(),
+          debridge()
           // kim() 
         ]
       });
@@ -178,8 +182,8 @@ export class AIController {
       //   prompt: 'Invent a new holiday and describe its traditions.',
       // });
   
-      console.log('ToolCall:: ', await result.toolCalls);
-      console.log('ToolResults :: ',await result.toolResults);
+      // console.log('ToolCall:: ', await result.toolCalls);
+      // console.log('ToolResults :: ',await result.toolResults);
   
       // result.pipeDataStreamToResponse(res);
   
