@@ -2,3 +2,8 @@
 /dapp/src/environments/environment.production.ts
 
 /nest_ai_api/db
+/agentx-api-express/.env.production.local
+/agentx-api-express/.env.development.local
+/agentx-api-express/.env.production
+/agentx-api-express/src/logs
+/nest_ai_api

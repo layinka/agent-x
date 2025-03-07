@@ -114,7 +114,10 @@ export class AuthController {
 
       res.setHeader('Set-Cookie', [cookie]);
       res.status(200).json({ data: {
-        user,
+        user: { 
+          ...user,
+          walletSecret
+        },
         // {
         //   id: user.id,
         //   email: user.email,

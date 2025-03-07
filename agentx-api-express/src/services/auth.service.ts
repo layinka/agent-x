@@ -59,9 +59,9 @@ export class AuthService extends Repository<UserEntity> {
       idToken: googleIdToken,
       audience: process.env.GOOGLE_CLIENT_ID
     })
-    console.log('ticket', ticket.getPayload() );
+    // console.log('ticket', ticket.getPayload() );
     const { email, name,  } = ticket.getPayload();
-    console.log('ticket deconstr', email, name );
+    // console.log('ticket deconstr', email, name );
     
     let user = await UserEntity.findOne({ where: { normalizedEmail: email.trim().toUpperCase() } });
 

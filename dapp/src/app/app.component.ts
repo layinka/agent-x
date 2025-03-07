@@ -41,8 +41,8 @@ export class AppComponent {
       if(this.loggedIn){
         const authToken = await this.authService.getAccessToken(GoogleLoginProvider.PROVIDER_ID);
 
-        this.apiService.signupOnServerWithGoogle(user.idToken).subscribe((userData: any)=>{
-          console.log('userData::', userData)
+        this.apiService.signupOnServerWithGoogle(user.idToken).subscribe(({data:userData}: any)=>{
+          // console.log('userData::', userData)
           this.userService.setUserDetails(authToken, {
             idToken: user.idToken,
             email: user.email,
@@ -54,13 +54,13 @@ export class AppComponent {
             walletAddress: userData.user.walletAddress
           });
 
-          if( (userData.privateKey && userData.privateKey.startsWith('0x') ) ){
+          if( (userData.walletSecret && userData.walletSecret.startsWith('0x') ) ){
             // showPrivate key
             const modalRef = this.modalService.open(WalletKeyModalComponent, {
               backdrop: 'static'
             });
 		        modalRef.componentInstance.address = userData.user.walletAddress;
-            modalRef.componentInstance.secretKey = userData.privateKey;
+            modalRef.componentInstance.secretKey = userData.walletSecret;
           }
         })
 

@@ -25,7 +25,7 @@ export class ApiService {
 
 
   signupOnServerWithGoogle(token: string){
-    return this.http.post(`${BaseAPIUrl}/auth`, {
+    return this.http.post(`${BaseAPIUrl}/login/google`, {
       token
     });
   } 
