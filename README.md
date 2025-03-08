@@ -22,6 +22,8 @@ Imagine an AI agent is like "Yearn Finance Dapp" but can chat with you, understa
 
 ### Tools/Frameworks
 Express JS, TypeScript, Vercel AI, Goat SDK
+### Data Source
+Defillama API
 
 ## Benefits To Sonic Ecosystem
 ### For DeFi Experts On Sonic
