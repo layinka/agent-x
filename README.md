@@ -1,7 +1,9 @@
 ## AgentX
-DeFi Yield optimization agent on Sonic.
+Autonomous DeFi Yield optimization agent on Sonic.
 
-AgentX is an AI agent that can chat with each user and also work round-the-clock to maximize DeFi yeilds, based on each user's goals, risk tolerance and market conditions.
+AgentX is an autonomous DeFi yield optimization agent designed to maximize returns on stablecoin deposits across  Sonic Network’s leading lending and staking protocols.
+
+AgentX can chat with each user, understand each user's DeFi yield goals, risk tolerance, monitor market conditions and also work round-the-clock to maximize DeFi yeilds.
 
 Imagine an AI agent is like "Yearn Finance Dapp" but can chat with you, understand your yeild farming goals, risk tolerance and learn from market conditions and sentiments including DeFi announcements and public discussions inorder to maximize your DEFI yeilds for you across top yeild opportunities, while you're sleeping or driving.
 
