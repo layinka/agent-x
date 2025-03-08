@@ -1,0 +1,25 @@
+<div class="chat-container d-flex flex-column position-relative" style="height: 96vh; overflow: hidden;">
+    <!-- Chat Messages (Scrollable) -->
+    <div class="chat-messages flex-grow-1 overflow-auto p-3">
+        <div *ngFor="let msg of messages" class="d-flex mb-2"
+            [ngClass]="{'justify-content-end': msg.sender === 'user', 'justify-content-start': msg.sender === 'assistant'}">
+            <div class="message-bubble p-2 rounded"
+                [ngClass]="{'user-message': msg.sender === 'user', 'assistant-message': msg.sender === 'assistant'}">
+                <p class="bg-chat-box px-3 py-2 fs-6">{{ msg.text }}</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Chat Input (Fixed at Bottom of Chat Section) -->
+    <div class="chat-input p-3 border-top w-100">
+        <div class="container">
+            <div class="input-group">
+                <input type="text" class="form-control form-control-sm" placeholder="Type a message..."
+                    [formControl]="promptInput">
+                <button class="btn btn-dark" type="button" (click)="sendPrompt()">
+                    <i class="bi bi-send"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

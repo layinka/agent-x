@@ -3,32 +3,35 @@ import { Injectable } from '@angular/core';
 import { environment } from '../../environments/environment';
 import { lastValueFrom, shareReplay } from 'rxjs';
 import { Observable, of } from 'rxjs';
-import { map, tap,  } from 'rxjs/operators';
+import { map, tap } from 'rxjs/operators';
 
-
-const BaseAPIUrl = environment.BaseAPiUrl
-
+const BaseAPIUrl = environment.BaseAPiUrl;
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class ApiService {
+  private currencyRateCache$?: Observable<any>;
 
-  private currencyRateCache$? : Observable<any>;
-  
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient) {}
 
-    
-   }
+  submitPrompt(
+    endpoint: string,
+    prompt: string
+  ): Observable<{ success: boolean; fullResponse: string }> {
+    return this.http.post<{ success: boolean; fullResponse: string }>(
+      `${BaseAPIUrl}/${endpoint}`,
+      {
+        prompt,
+      }
+    );
+  }
 
-
-
-
-  signupOnServerWithGoogle(token: string){
+  signupOnServerWithGoogle(token: string) {
     return this.http.post(`${BaseAPIUrl}/login/google`, {
-      token
+      token,
     });
-  } 
+  }
 
   // signUp(walletAddress: string, displayName: string, signature: string, file?: File ){
   //   const formData: FormData = new FormData();
@@ -37,20 +40,19 @@ export class ApiService {
   //   }
   //   formData.append('address', walletAddress);
   //   formData.append('displayName', displayName);
-    
+
   //   // formData.append('timeStamp', timestamp.toString());
   //   formData.append('signature', signature);
 
-    
   //   return this.http.post(`${BaseAPIUrl}/auth/signup-with-wallet`, formData);
-  
+
   // }
 
   // login(walletAddress: string,  signature: string ){
   //   const formData: FormData = new FormData();
-    
+
   //   formData.append('address', walletAddress);
-    
+
   //   // formData.append('timeStamp', timestamp.toString());
   //   formData.append('signature', signature);
 
@@ -60,24 +62,23 @@ export class ApiService {
   //   //   responseType: 'json',
   //   // });
   //   // return this.http.request(req);
-  
+
   // }
 
   // updateProfile( email: string ){
-      
+
   //   return this.http.post(`${BaseAPIUrl}/auth/profile`, {
   //     email
   //   });
-  
+
   // }
 
   // updateProfilePicture( file: File ){
   //   const formData: FormData = new FormData();
   //   formData.append('file', file);
-    
-        
+
   //   return this.http.post(`${BaseAPIUrl}/auth/update-profile-picture`, formData);
-  
+
   // }
 
   // get(path: string, token: string){
@@ -90,10 +91,10 @@ export class ApiService {
 
   // getBlockChains(){
   //   if (!this.blockchainCache$) {
-      
+
   //     this.blockchainCache$ = this.http.get(`${BaseAPIUrl}/blockchains`).pipe(
   //       tap((data: any) => {
-  //         // console.log('Data fetched from API') 
+  //         // console.log('Data fetched from API')
   //       }),
   //       map((m:ApiResponse)=> m.results),
   //       shareReplay(1)
@@ -122,14 +123,14 @@ export class ApiService {
   //   const chainQuery = chainId? `&chainId=${chainId}`:'';
 
   //   const queryParams = `?page=${page}&pageSize=${pageSize}${chainQuery}`
-    
+
   //   return this.http.get(`${BaseAPIUrl}/coins/get-mine/${queryParams}`)
   // }
 
   // getTrendingNews(countryCode: string, page:number=1, pageSize:number=24){
-    
+
   //   const queryParams = `?page=${page}&pageSize=${pageSize}`
-    
+
   //   return this.http.get(`${BaseAPIUrl}/news/get-trending/${countryCode}${queryParams}`)
   // }
 
@@ -207,7 +208,4 @@ export class ApiService {
   // //   const rates: any = await lastValueFrom( this.getCurrencyRates());
   // //   return amountInNGN * rates.NEAR;
   // // }
-
-
-
 }

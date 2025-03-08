@@ -13,6 +13,7 @@ import {
 } from '@abacritt/angularx-social-login';
 import { environment } from '../environments/environment';
 import { AuthInterceptorService } from './services/auth-interceptor.service';
+import { FormsModule } from '@angular/forms';
 
 export const appConfig: ApplicationConfig = {
   
@@ -25,11 +26,12 @@ export const appConfig: ApplicationConfig = {
     NgxSpinnerModule, 
     provideHttpClient(), 
     SocialLoginModule,
+    FormsModule,
     
     {
       provide: 'SocialAuthServiceConfig',
       useValue: {
-        autoLogin: false,
+        autoLogin: true,
         lang: 'en',
         providers: [
           {
@@ -37,7 +39,7 @@ export const appConfig: ApplicationConfig = {
             provider: new GoogleLoginProvider(
               environment.googleClientId,
               {
-                oneTapEnabled: true,
+                oneTapEnabled: false,
                 scopes: 'openid profile email',
                 // prompt: '',
 
