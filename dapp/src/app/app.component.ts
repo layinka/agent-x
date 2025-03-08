@@ -26,46 +26,50 @@ export class AppComponent {
   private modalService = inject(NgbModal);
   userService =inject (UserService);
 
-  user?: SocialUser;
-  loggedIn: boolean=false;
 
+  authStateSubscription: any;
 
   async ngOnInit(){
-    // setTimeout(() => {
-    //   this.ngxSpinner.show();
-    // },3000)
-    this.authService.authState.subscribe(async (user) => {
-      this.user = user;
-      this.loggedIn = (user != null);
-      
-      if(this.loggedIn){
-        const authToken = await this.authService.getAccessToken(GoogleLoginProvider.PROVIDER_ID);
+    setTimeout(() => {
+      console.log('About to check logged in')
+      if(!this.userService.isLoggedIn){
+        this.authStateSubscription =  this.authService.authState.subscribe(async (user) => {
 
-        this.apiService.signupOnServerWithGoogle(user.idToken).subscribe(({data:userData}: any)=>{
-          // console.log('userData::', userData)
-          this.userService.setUserDetails(authToken, {
-            idToken: user.idToken,
-            email: user.email,
-            firstName:user.firstName,
-            lastName: user.lastName,
-            name: user.lastName,
-            id: userData.user.id,
-            photoUrl: user.photoUrl,
-            walletAddress: userData.user.walletAddress
-          });
-
-          if( (userData.walletSecret && userData.walletSecret.startsWith('0x') ) ){
-            // showPrivate key
-            const modalRef = this.modalService.open(WalletKeyModalComponent, {
-              backdrop: 'static'
-            });
-		        modalRef.componentInstance.address = userData.user.walletAddress;
-            modalRef.componentInstance.secretKey = userData.walletSecret;
+          console.log('AUTHSTATE::', user)
+              
+          if(user != null){
+            
+            this.apiService.signupOnServerWithGoogle(user.idToken).subscribe(({data:userData}: any)=>{
+              console.log('userData::', userData, userData.token.token)
+              this.userService.setUserDetails(userData.token.token, {
+                idToken: user.idToken,
+                email: user.email,
+                firstName:user.firstName,
+                lastName: user.lastName,
+                name: user.lastName,
+                id: userData.user.id,
+                photoUrl: user.photoUrl,
+                walletAddress: userData.user.walletAddress
+              });
+    
+              if( (userData.walletSecret && userData.walletSecret.startsWith('0x') ) ){
+                // showPrivate key
+                const modalRef = this.modalService.open(WalletKeyModalComponent, {
+                  backdrop: 'static'
+                });
+                modalRef.componentInstance.address = userData.user.walletAddress;
+                modalRef.componentInstance.secretKey = userData.walletSecret;
+              }
+            })
+    
           }
-        })
-
+        });
       }
-    });
+    },1000)
+
+    
+    
+    
     
   }
 

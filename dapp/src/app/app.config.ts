@@ -24,14 +24,14 @@ export const appConfig: ApplicationConfig = {
     provideAnimationsAsync(),
     CommonModule,
     NgxSpinnerModule, 
-    provideHttpClient(), 
+    
     SocialLoginModule,
     FormsModule,
     
     {
       provide: 'SocialAuthServiceConfig',
       useValue: {
-        autoLogin: true,
+        autoLogin: false,
         lang: 'en',
         providers: [
           {

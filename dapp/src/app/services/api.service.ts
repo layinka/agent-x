@@ -33,6 +33,10 @@ export class ApiService {
     });
   }
 
+  test() {
+    return this.http.get(`${BaseAPIUrl}/ai/test`);
+  }
+
   // signUp(walletAddress: string, displayName: string, signature: string, file?: File ){
   //   const formData: FormData = new FormData();
   //   if(file){

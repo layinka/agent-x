@@ -22,6 +22,12 @@ export class AiChatComponent {
 
   private apiService = inject(ApiService);
 
+  ngOnInit(){
+    setTimeout(()=>{
+      this.test()
+    },5500)
+  }
+
   sendPrompt() {
     const prompt = this.promptInput.value?.trim() ?? '';
 
@@ -46,4 +52,24 @@ export class AiChatComponent {
 
     this.promptInput.reset();
   }
+
+  test() {
+    
+    // // call the Api
+    // this.apiService.test().subscribe({
+    //   next: (res: any) => {
+    //     console.log('AI Response', res);
+    //     console.log('resp:',  res.fullResponse)
+          
+    //   },
+    //   error: (error) => {
+    //     console.error( 'Error', error );
+        
+    //   },
+    // });
+
+    // this.promptInput.reset();
+  }
+
+
 }

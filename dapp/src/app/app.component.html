@@ -16,34 +16,56 @@
             </button>
         </div>
 
-        <ul *ngIf="loggedIn" class="nav nav-pills flex-column mb-sm-auto mb-0 align-items-center align-items-sm-start"
+        <ul  class="nav nav-pills flex-column mb-sm-auto mb-0 align-items-center align-items-sm-start"
             id="menu">
             <li class="nav-item">
-                <a href="#" class="nav-link align-middle px-0">
+                <a [routerLink]="['/']" class="nav-link align-middle px-0">
                     <i class="fs-4 bi-house"></i> <span class="ms-1 d-none d-sm-inline">Home</span>
                 </a>
             </li>
-            <li>
-                <a href="#submenu1" data-bs-toggle="collapse" class="nav-link px-0 align-middle">
-                    <i class="fs-4 bi-speedometer2"></i> <span class="ms-1 d-none d-sm-inline">Dashboard</span>
+            <li *ngIf="userService.isLoggedIn">
+                <a [routerLink]="['/chat']" data-bs-toggle="collapse" class="nav-link px-0 align-middle">
+                    <i class="fs-4 bi-speedometer2"></i> <span class="ms-1 d-none d-sm-inline">Chat</span>
                 </a>
             </li>
-            <li>
+            <li *ngIf="userService.isLoggedIn">
                 <a href="#" class="nav-link px-0 align-middle">
                     <i class="fs-4 bi-table"></i> <span class="ms-1 d-none d-sm-inline">Swap</span>
+                </a>
+            </li>
+            <li *ngIf="userService.isLoggedIn">
+                <a href="#" class="nav-link px-0 align-middle">
+                    <i class="fs-4 bi-table"></i> <span class="ms-1 d-none d-sm-inline">Bridge</span>
+                </a>
+            </li>
+
+            <li *ngIf="userService.isLoggedIn">
+                <a href="#" class="nav-link px-0 align-middle">
+                    <i class="fs-4 bi-table"></i> <span class="ms-1 d-none d-sm-inline">Mint</span>
+                </a>
+            </li>
+
+            <li *ngIf="userService.isLoggedIn">
+                <a href="#" class="nav-link px-0 align-middle">
+                    <i class="fs-4 bi-table"></i> <span class="ms-1 d-none d-sm-inline">Invest/Stake</span>
                 </a>
             </li>
         </ul>
         <hr>
 
-        <div class="fixed-bottom">
+        <div class="fixed-bottom"> 
+            <div *ngIf="!userService.isLoggedIn">
+                <asl-google-signin-button type='standard' size='medium' class="mx-1"></asl-google-signin-button>
+            </div>
+
+            
             <hr>
 
-            <div class="dropdown pb-4" ngbDropdown *ngIf="loggedIn">
+            <div class="dropdown pb-4" ngbDropdown *ngIf="userService.isLoggedIn">
                 <a href="#" class="d-flex align-items-center text-white text-decoration-none dropdown-toggle"
                     id="dropdownUser1" ngbDropdownToggle data-bs-toggle="dropdown" aria-expanded="false">
-                    <img src="{{ user?.photoUrl }}" alt="no photo" width="30" height="30" class="rounded-circle">
-                    <span class="d-none d-sm-inline mx-1">{{ user?.name??'No Name' }}</span>
+                    <img src="{{ userService.userDetails?.photoUrl }}" alt="no photo" width="30" height="30" class="rounded-circle">
+                    <span class="d-none d-sm-inline mx-1">{{ userService.userDetails?.name??'No Name' }}</span>
                 </a>
                 <ul class="dropdown-menu dropdown-menu-dark text-small shadow" ngbDropdownMenu>
                     <li ngbDropdownItem><a class="dropdown-item" [routerLink]="['/wallet']">Wallet</a></li>

@@ -16,7 +16,9 @@ export class AIRoute implements Routes {
   }
 
   private initializeRoutes() {
-    this.router.post(`${this.path}/prompt` , ValidationMiddleware(UserPromptDTO), this.aiController.prompt);
+    this.router.post(`${this.path}/prompt` , AuthMiddleware, ValidationMiddleware(UserPromptDTO), this.aiController.prompt);
+
+    this.router.get(`${this.path}/prompt-test` , ValidationMiddleware(UserPromptDTO),  this.aiController.promptTest);
    
   }
 }
