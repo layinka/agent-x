@@ -124,6 +124,27 @@ export class App {
               },
             },
 
+            UserMessagePromptDTO: {
+              type: 'object',
+              properties: {
+                messages: {
+                  type: 'array',
+                  items: {
+                    type: 'object',
+                    properties: {
+                      id: { type: 'string' },
+                      role: { 
+                        type: 'string',
+                        enum: ['system', 'user', 'assistant', 'data']
+                      },
+                      content: { type: 'string' },
+                      createdAt: { type: 'string', format: 'date-time', nullable: true }
+                    }
+                  }
+                }
+              }
+            },
+
             AIPromptResponse: {
               type: 'object',
               properties: {

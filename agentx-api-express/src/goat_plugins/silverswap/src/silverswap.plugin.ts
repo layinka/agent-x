@@ -1,9 +1,9 @@
 import { type Chain, PluginBase } from "@goat-sdk/core";
 import type { EVMWalletClient } from "@goat-sdk/wallet-evm";
-import { sonic } from "viem/chains";
+import { sonic, sonicBlazeTestnet } from "viem/chains";
 import { SilverSwapService } from "./silverswap.service";
 
-const SUPPORTED_CHAINS = [sonic];
+const SUPPORTED_CHAINS = [sonic, sonicBlazeTestnet];
 
 export class SilverSwapPlugin extends PluginBase<EVMWalletClient> {
     constructor() {

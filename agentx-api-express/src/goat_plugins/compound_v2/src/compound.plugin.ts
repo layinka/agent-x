@@ -1,6 +1,6 @@
 import { type Chain, PluginBase } from "@goat-sdk/core";
 import { EVMWalletClient } from "@goat-sdk/wallet-evm";
-import { base, hardhat, mode, optimism, sonic, sonicTestnet } from "viem/chains";
+import { base, hardhat, mode, optimism, sonic, sonicBlazeTestnet, sonicTestnet } from "viem/chains";
 import { CompoundService } from "./compound.service";
 
 const supportedChains = [
@@ -8,6 +8,7 @@ const supportedChains = [
     optimism,
     sonic, 
     sonicTestnet,
+    sonicBlazeTestnet,
     hardhat
 ]
 

@@ -1,6 +1,6 @@
 import {type Chain, PluginBase } from '@goat-sdk/core';
 import { DefiLlamaService } from './def-llama.service';
-import { base, hardhat, optimism, sonic, sonicTestnet } from 'viem/chains';
+import { base, hardhat, optimism, sonic, sonicBlazeTestnet, sonicTestnet } from 'viem/chains';
 
 
 const supportedChains = [
@@ -8,6 +8,7 @@ const supportedChains = [
   optimism,
   sonic, 
   sonicTestnet,
+  sonicBlazeTestnet,
   hardhat,
 
 ]

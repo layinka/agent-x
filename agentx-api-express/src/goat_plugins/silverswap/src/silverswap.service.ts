@@ -20,9 +20,26 @@ import {
     MintParams,
 } from "./parameters";
 
-const SWAP_ROUTER_ADDRESS = "0xAc48FcF1049668B285f3dC72483DF5Ae2162f7e8";
-const POSITION_MANAGER_ADDRESS = "0x2e8614625226D26180aDf6530C3b1677d3D7cf10";
-const FACTORY_ADDRESS = "0xB5F00c2C5f8821155D8ed27E31932CFD9DB3C5D5";
+
+// async resolveAddress(address: string) {
+//     if (/^0x[a-fA-F0-9]{40}$/.test(address)) return address as `0x${string}`;
+
+//     try {
+//         const resolvedAddress = (await this.publicClient.getEnsAddress({
+//             name: normalize(address),
+//         })) as `0x${string}`;
+//         if (!resolvedAddress) {
+//             throw new Error("ENS name could not be resolved.");
+//         }
+//         return resolvedAddress as `0x${string}`;
+//     } catch (error) {
+//         throw new Error(`Failed to resolve ENS name: ${error}`);
+//     }
+// }
+//Silverswap - SonicBlaze
+const SWAP_ROUTER_ADDRESS = "0x0Bb909b7c3817F8fB7188e8fbaA2763028956E30";
+const POSITION_MANAGER_ADDRESS = "0xEcA3eDfD09435C2C7D2583124ca9a44f82aF1e8b";
+const FACTORY_ADDRESS = "0x9C5Dd70D98e9B321217e8232235e25E64E78C595";
 
 export class SilverSwapService {
     @Tool({
@@ -34,10 +51,12 @@ export class SilverSwapService {
     }
 
     @Tool({
+        name: "silverswap_swap_exact_input_single_hop",
         description:
             "Swap an exact amount of input tokens for an output token in a single hop. Have the token amounts in their base units. Don't need to approve the swap router for the output token. User will have sufficient balance of the input token. The swap router address is already provided in the function. Returns a transaction hash on success. Once you get a transaction hash, the swap is complete - do not call this function again.",
     })
     async swapExactInputSingleHop(walletClient: EVMWalletClient, parameters: ExactInputSingleParams) {
+        console.log('Starting exact single input')
         try {
             const approvalHash = await walletClient.sendTransaction({
                 to: parameters.tokenInAddress as `0x${string}`,
@@ -45,6 +64,8 @@ export class SilverSwapService {
                 functionName: "approve",
                 args: [SWAP_ROUTER_ADDRESS, parameters.amountIn],
             });
+
+            console.log('Approvehash::', approvalHash)
 
             const timestamp = Math.floor(Date.now() / 1000) + parameters.deadline;
 
@@ -65,9 +86,13 @@ export class SilverSwapService {
                 ],
             });
 
+            console.log('Submitted txn::', hash)
+
             return hash.hash;
         } catch (error) {
+            console.error('swap_exact_input_single_hop Error: ', error)
             throw Error(`Failed to swap exact input single hop: ${error}`);
+
         }
     }
 
@@ -125,7 +150,7 @@ export class SilverSwapService {
     })
     async swapExactInputMultiHop(walletClient: EVMWalletClient, parameters: ExactInputParams): Promise<string> {
         try {
-            const recipient = await walletClient.resolveAddress(parameters.recipient);
+            const recipient = parameters.recipient as `0x${string}`;// await walletClient.resolveAddress(parameters.recipient);
 
             // Get first and last token decimals
             const tokenInDecimals = Number(
@@ -182,7 +207,7 @@ export class SilverSwapService {
     })
     async swapExactOutputMultiHop(walletClient: EVMWalletClient, parameters: ExactOutputParams): Promise<string> {
         try {
-            const recipient = await walletClient.resolveAddress(parameters.recipient);
+            const recipient = parameters.recipient as `0x${string}`;// await walletClient.resolveAddress(parameters.recipient);
 
             // Get first and last token decimals
             const tokenInDecimals = Number(
@@ -256,7 +281,7 @@ export class SilverSwapService {
 
             const poolAddressResult = await walletClient.read({
                 address: FACTORY_ADDRESS as `0x${string}`,
-                abi: silverswap_FACTORY_ABI,
+                abi: FACTORY_ABI,
                 functionName: "poolByPair",
                 args: [token0, token1],
             });
@@ -267,8 +292,26 @@ export class SilverSwapService {
                 abi: POOL_ABI,
                 functionName: "globalState",
             });
+
+           
+            
+
+            
             // biome-ignore lint/suspicious/noExplicitAny: value is any
             const globalStateArray = (globalState as { value: any[] }).value;
+            
+            if (globalStateArray[0] === BigInt(0)) {
+                console.log("Initializing pool...");
+                const initHash = await walletClient.sendTransaction({
+                    to: poolAddress as `0x${string}`,
+                    abi: POOL_ABI,
+                    functionName: "initialize",
+                    args: [BigInt (2 ** 96).toString()],
+                });
+                
+            }else{
+                console.log("Using Initialized Pool at:", poolAddress, globalStateArray[0]);
+            }
             const currentTick = Number.parseInt(globalStateArray[1].toString());
 
             // Calculate nearest tick that's divisible by spacing
@@ -365,8 +408,8 @@ export class SilverSwapService {
                         tokenId: parameters.tokenId,
                         amount0Desired: amount0Raw,
                         amount1Desired: amount1Raw,
-                        amount0Min: 0n,
-                        amount1Min: 0n,
+                        amount0Min: BigInt(0),
+                        amount1Min: BigInt(0),
                         deadline: timestamp,
                     },
                 ],
@@ -400,8 +443,8 @@ export class SilverSwapService {
             const liquidityToRemove = (currentLiquidity * BigInt(parameters.percentage)) / BigInt(100);
 
             // Set min amounts to 0 for now
-            const amount0Min = 0n;
-            const amount1Min = 0n;
+            const amount0Min = BigInt(0);
+            const amount1Min = BigInt(0);
 
             const timestamp = Math.floor(Date.now() / 1000) + 60;
 

@@ -19,7 +19,7 @@ import * as readline from 'node:readline/promises';
 import { createOpenAICompatible } from '@ai-sdk/openai-compatible';
 import { createWalletClient } from "viem";
 import { generatePrivateKey, privateKeyToAccount } from "viem/accounts";
-import { sepolia, sonic,hardhat, sonicTestnet } from "viem/chains";
+import { sepolia, sonic,hardhat, sonicTestnet, sonicBlazeTestnet } from "viem/chains";
 import { http } from "viem";
 import { getOnChainTools } from "@goat-sdk/adapter-vercel-ai";
 import { viem } from "@goat-sdk/wallet-viem";
@@ -27,7 +27,7 @@ import { EVMWalletClient, sendETH, } from "@goat-sdk/wallet-evm";
 
 import { MODE, Token, erc20 } from "@goat-sdk/plugin-erc20";
 import { kim } from '@goat-sdk/plugin-kim';
-import { UserPromptDTO } from '@/dtos/ai.dto';
+import { UserMessagePromptDTO, UserPromptDTO } from '@/dtos/ai.dto';
 import { randomUUID } from 'node:crypto';
 import { PluginBase } from '@goat-sdk/core';
 import { createMistral } from '@ai-sdk/mistral';
@@ -36,6 +36,32 @@ import { debridge } from "@goat-sdk/plugin-debridge";
 import { compound_v2 } from '@/goat_plugins/compound_v2/src';
 import { UserService } from '@/services/users.service';
 import { decrypt } from '@/utils/encrypter';
+import { silverswap } from '@/goat_plugins/silverswap/src';
+
+export const USDC0: Token = {
+  decimals: 18,
+  symbol: "USDC0",
+  name: "USDC0",
+  chains: {
+      
+      "57054":{
+        contractAddress: "0x1BFDDf6079c257dD4C41917EC4ec66bC2E667477",
+      }
+  },
+};
+
+export const USDC1: Token = {
+  decimals: 18,
+  symbol: "USDC1",
+  name: "USDC1",
+  chains: {
+      
+      "57054":{// sonicBlaze
+        contractAddress: "0x911643beb5A9631803f4f00B0673002E07c0D61F",
+      }
+  },
+};
+
 
 
 export const USDC: Token = {
@@ -67,6 +93,9 @@ export const USDC: Token = {
       "31337": {
           contractAddress: "0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48",
       },
+      "57054":{
+        contractAddress: "0x1BFDDf6079c257dD4C41917EC4ec66bC2E667477",
+      }
   },
 };
 
@@ -99,6 +128,10 @@ export const DAI: Token = {
       "31337": {
           contractAddress: "0x6B175474E89094C44Da98b954EedeAC495271d0F",
       },
+      
+      "57054":{// sonicBlaze
+        contractAddress: "0x1BFDDf6079c257dD4C41917EC4ec66bC2E667477",
+      }
   },
 };
 
@@ -126,11 +159,13 @@ export class AIController {
    *             $ref: '#/components/schemas/AIPrompt'
    *     responses:
    *       201:
-   *         description: Prmopt completed successfully
+   *         description: Prompt completed successfully
    *         content:
    *           application/json:
    *             schema:
    *               $ref: '#/components/schemas/AIPromptResponse'
+   *       401:
+   *          Authorization failed
    *       500:
    *         description: Internal server error
    */
@@ -155,22 +190,22 @@ export class AIController {
       });
       
 
-      const promptData: UserPromptDTO = req.body;
+      const promptData: UserMessagePromptDTO = req.body;
 
       const mistralAi = createMistral();
 
-      const messages: Message[]= [
-        {
-          id: randomUUID(),
-          role: 'system',
-          content: 'You are an expert crypto defi agent.You work on the hardhat chain. You know how to help people get their ERC20 Balances, their ETH balance and General ERC20 token information like name, symbol, supply. You also know how to get information about defi yield opportunities from defillama.',
-        },
-        {
-          id: randomUUID(),
-          role: 'user',
-          content: promptData.prompt,//  'Get My Wallet address',
-        }
-      ];
+      // const messages: Message[]= [
+      //   {
+      //     id: randomUUID(),
+      //     role: 'system',
+      //     content: 'You are an expert crypto defi agent.You work on the hardhat chain. You know how to help people get their ERC20 Balances, their ETH balance and General ERC20 token information like name, symbol, supply. You also know how to get information about defi yield opportunities from defillama.',
+      //   },
+      //   {
+      //     id: randomUUID(),
+      //     role: 'user',
+      //     content: promptData.prompt,//  'Get My Wallet address',
+      //   }
+      // ];
       
       
       const onchainTools = await getOnChainTools({
@@ -182,9 +217,9 @@ export class AIController {
           sendETH()  as unknown as PluginBase<EVMWalletClient>, 
           erc20({ tokens: [USDC, DAI, MODE] }), 
           defillama(),
-          // debridge(),
-          compound_v2()
-          // kim() 
+          debridge(),
+          compound_v2(),
+          silverswap()
         ]
       });
   
@@ -193,7 +228,7 @@ export class AIController {
         model:mistralAi('mistral-large-latest', {
             // safePrompt: true, // optional safety prompt injection
           }), // hyperbolicProvider('meta-llama/Meta-Llama-3.1-70B-Instruct'),
-        messages: messages,
+        messages: promptData.messages,
         //  [
         //   {
         //     role: 'system',
@@ -202,33 +237,7 @@ export class AIController {
         // ],
         //@ts-ignore
         tools: onchainTools, 
-        // {
-        //   // weather: tool({
-        //   //   description: 'Get the weather in a location (in Celsius)',
-        //   //   parameters: z.object({
-        //   //     location: z
-        //   //       .string()
-        //   //       .describe('The location to get the weather for'),
-        //   //   }),
-        //   //   execute: async ({ location }) => ({
-        //   //     location,
-        //   //     temperature: Math.round((Math.random() * 30 + 5) * 10) / 10, // Random temp between 5°C and 35°C
-        //   //   }),
-        //   // }),
-  
-        //   // convertCelsiusToFahrenheit: tool({
-        //   //     description: 'Convert a temperature from Celsius to Fahrenheit',
-        //   //     parameters: z.object({
-        //   //       celsius: z
-        //   //         .number()
-        //   //         .describe('The temperature in Celsius to convert'),
-        //   //     }),
-        //   //     execute: async ({ celsius }) => {
-        //   //       const fahrenheit = (celsius * 9) / 5 + 32;
-        //   //       return { fahrenheit: Math.round(fahrenheit * 100) / 100 };
-        //   //     },
-        //   // }),
-  
+        
         //   ...onchainTools
         // },
         maxSteps: 15,
@@ -267,7 +276,28 @@ export class AIController {
   };
 
 
-
+  /**
+   * @swagger
+   * /ai/prompt-test:
+   *   post:
+   *     summary: Prompt AI Test
+   *     tags: [A.I.]
+   *     requestBody:
+   *       required: true
+   *       content:
+   *         application/json:
+   *           schema:
+   *             $ref: '#/components/schemas/AIPrompt'
+   *     responses:
+   *       201:
+   *         description: Prmopt completed successfully
+   *         content:
+   *           application/json:
+   *             schema:
+   *               $ref: '#/components/schemas/AIPromptResponse'
+   *       500:
+   *         description: Internal server error
+   */
   public promptTest = async (req: Request, res: Response, next: NextFunction) => {
     try {
 
@@ -279,8 +309,8 @@ export class AIController {
       
       const walletClient = createWalletClient({
         account: account,
-        transport: http('http://localhost:8545'),//'https://ethereum-sepolia-rpc.publicnode.com'
-        chain: hardhat,
+        transport: http(), // http('http://localhost:8545'),//'https://ethereum-sepolia-rpc.publicnode.com'
+        chain: sonicBlazeTestnet,
       });
       
 
@@ -292,7 +322,7 @@ export class AIController {
         {
           id: randomUUID(),
           role: 'system',
-          content: 'You are an expert crypto defi agent.You work on the hardhat chain. You know how to help people get their ERC20 Balances, their ETH balance and General ERC20 token information like name, symbol, supply. You also know how to get information about defi yield opportunities from defillama.',
+          content: 'You are an expert crypto defi agent.You work on the sonicBlaze  chain testnet. You know how to help people get their ERC20 Balances, their ETH balance and General ERC20 token information like name, symbol, supply. You also know how to get information about defi yield opportunities from defillama. You can also help people swap through the silverswap DEX using a slippage of upto 5%.',
         },
         {
           id: randomUUID(),
@@ -309,11 +339,11 @@ export class AIController {
           //@ ts -ignore
           // sendETH(), 
           sendETH()  as unknown as PluginBase<EVMWalletClient>, 
-          erc20({ tokens: [USDC, DAI, MODE] }), 
+          erc20({ tokens: [USDC, DAI, MODE, USDC0, USDC1] }), 
           defillama(),
           // debridge(),
-          compound_v2()
-          // kim() 
+          // compound_v2(),
+          silverswap() 
         ]
       });
   
@@ -331,39 +361,15 @@ export class AIController {
         // ],
         //@ts-ignore
         tools: onchainTools, 
-        // {
-        //   // weather: tool({
-        //   //   description: 'Get the weather in a location (in Celsius)',
-        //   //   parameters: z.object({
-        //   //     location: z
-        //   //       .string()
-        //   //       .describe('The location to get the weather for'),
-        //   //   }),
-        //   //   execute: async ({ location }) => ({
-        //   //     location,
-        //   //     temperature: Math.round((Math.random() * 30 + 5) * 10) / 10, // Random temp between 5°C and 35°C
-        //   //   }),
-        //   // }),
-  
-        //   // convertCelsiusToFahrenheit: tool({
-        //   //     description: 'Convert a temperature from Celsius to Fahrenheit',
-        //   //     parameters: z.object({
-        //   //       celsius: z
-        //   //         .number()
-        //   //         .describe('The temperature in Celsius to convert'),
-        //   //     }),
-        //   //     execute: async ({ celsius }) => {
-        //   //       const fahrenheit = (celsius * 9) / 5 + 32;
-        //   //       return { fahrenheit: Math.round(fahrenheit * 100) / 100 };
-        //   //     },
-        //   // }),
-  
+         
         //   ...onchainTools
         // },
         maxSteps: 15,
         onStepFinish: step => {
           
-          console.log(step.finishReason, step.stepType, JSON.stringify(step.response, null, 2));
+          // console.log(step.finishReason, step.stepType, JSON.stringify(step.response, null, 2));
+
+          console.log(' STEP_FINISH::: ',step.finishReason, step.stepType, '========');
         },
   
         // prompt: promptData.prompt?? "What's my wallet Address?",

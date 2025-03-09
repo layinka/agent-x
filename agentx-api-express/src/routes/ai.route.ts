@@ -4,7 +4,7 @@ import { AuthMiddleware } from '@middlewares/auth.middleware';
 import { ValidationMiddleware } from '@middlewares/validation.middleware';
 import { LoginWithGoogleDto } from '@/dtos/login.dto';
 import { AIController } from '@/controllers/ai.controller';
-import { UserPromptDTO } from '@/dtos/ai.dto';
+import { UserPromptDTO, UserMessagePromptDTO } from '@/dtos/ai.dto';
 
 export class AIRoute implements Routes {
   public path = '/ai';
@@ -16,9 +16,9 @@ export class AIRoute implements Routes {
   }
 
   private initializeRoutes() {
-    this.router.post(`${this.path}/prompt` , AuthMiddleware, ValidationMiddleware(UserPromptDTO), this.aiController.prompt);
+    this.router.post(`${this.path}/prompt` , AuthMiddleware, ValidationMiddleware(UserMessagePromptDTO), this.aiController.prompt);
 
-    this.router.get(`${this.path}/prompt-test` , ValidationMiddleware(UserPromptDTO),  this.aiController.promptTest);
+    this.router.post(`${this.path}/prompt-test` , ValidationMiddleware(UserPromptDTO),  this.aiController.promptTest);
    
   }
 }
