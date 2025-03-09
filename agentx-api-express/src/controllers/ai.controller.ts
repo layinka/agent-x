@@ -177,7 +177,7 @@ export class AIController {
       const user: User = await this.userService.findUserById(req.user.id);
       const walletSecret = decrypt( user.walletSecret);
 
-      console.log('walletscerte is ', walletSecret)
+      // console.log('walletscerte is ', walletSecret)
 
       const account = privateKeyToAccount(
         walletSecret as `0x${string}`, // process.env.WALLET_PRIVATE_KEY  as `0x${string}`

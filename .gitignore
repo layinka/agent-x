@@ -7,3 +7,4 @@
 /agentx-api-express/.env.production
 /agentx-api-express/src/logs
 /nest_ai_api
+/agentx-api-express/dist
