@@ -1,6 +1,6 @@
 export const environment = {
     production: true,
-    BaseAPiUrl : "http://localhost:3000", // "http://localhost:3100/v1", // http://localhost:3100/v1
+    BaseAPiUrl : "https://agentxapi.zarclays.com", // "http://localhost:3100/v1", // http://localhost:3100/v1
     reownProjectId: '6dc075707b4e66bff8df286aab204770',
     
     cryptoCompareApiKey: '091',

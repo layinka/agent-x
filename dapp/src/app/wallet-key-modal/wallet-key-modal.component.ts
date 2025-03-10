@@ -10,6 +10,6 @@ import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 export class WalletKeyModalComponent {
   activeModal = inject(NgbActiveModal);
 
-	@Input() address: string='';
+	@Input() address: string=''; 
   @Input() secretKey: string='0x7864b060e784949fa11403934511654d5873b362bf70d7b18f680e60b54e2098';
 }
