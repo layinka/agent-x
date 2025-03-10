@@ -58,4 +58,4 @@ Sonic mainnet
 1. Lending: Compound V2
 2. Staking
 3. Restaking
-4. Dexs: SilverSwap
+4. Dex: SilverSwap
