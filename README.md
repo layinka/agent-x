@@ -31,18 +31,17 @@ Express JS, TypeScript, Vercel AI, Goat SDK
 ### Data Source
 Defillama API
 
-## Benefits To Sonic Ecosystem
-### For DeFi Experts On Sonic
-- Automate monitoring of yeild pool data.
-- Automation of sentiment analysis across Defi announcements and public discussions on the internet.
-- Automation of investments based on pre-defined preferences.
-### For DeFi Newbies On Sonic
-- AgentX can execute complex DeFi yield strategies from natural language prompts.
-- AgentX can explain DeFi yeild opportunities in natural language.
-### For Sonic And Ecosystem Dapps
-- Automated liquidity discovery.
-- Automated liquidity connections.
-- 
+## Benefits
+### For Existing Users
+DEFI yield automation for Experts in DeFi yield strategies who are not having enough time for persistent manual intervention in DEFI yield or round-the-clock monitoring of yield protocols, market conditions and strategies.
+### For New Users
+DEFI yield strategy abstraction for users who are not having in-depth understanding of DEFI strategies and the workings of DEFI yield protocols.
+
+## For Sonic Labs and Ecosystem DEFI protocols/pools
+## To onboard new users and retain existing users.
+## To farm liquidity.
+
+
 ## Architecture Diagrams/screenshots
 
 ## Tools
