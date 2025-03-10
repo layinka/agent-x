@@ -36,9 +36,9 @@ DEFI yield automation for experts in DeFi yield strategies who are not having en
 ### For New Users
 DEFI yield strategy abstraction for new users who are not having in-depth understanding of DEFI strategies and the workings of DEFI yield protocols.
 
-## For Sonic Labs and Ecosystem DEFI protocols/pools
-### To onboard new users and retain existing users.
-### To farm liquidity.
+### For Sonic Labs and Ecosystem DEFI protocols/pools
+To onboard new users and retain existing users.
+To farm liquidity.
 
 
 ## Architecture Diagrams/screenshots
