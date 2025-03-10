@@ -21,7 +21,6 @@ Periodic need to monitor DEFI announcements, discussions and charts, 24/7, for r
 3. Automated asset allocation and automated rebalancing across lending, staking and liquidity pools powered by Debridge protocol, reasoning models and smart contracts.
 4. Auto-compounding of profits powered by AI reasoning models and deployed smart contracts on Sonic mainnet.
 
-
 ## AgentX Discord Server
 https://discord.gg/Kz73YCCxpY
 
@@ -38,8 +37,8 @@ DEFI yield automation for Experts in DeFi yield strategies who are not having en
 DEFI yield strategy abstraction for users who are not having in-depth understanding of DEFI strategies and the workings of DEFI yield protocols.
 
 ## For Sonic Labs and Ecosystem DEFI protocols/pools
-## To onboard new users and retain existing users.
-## To farm liquidity.
+### To onboard new users and retain existing users.
+### To farm liquidity.
 
 
 ## Architecture Diagrams/screenshots
