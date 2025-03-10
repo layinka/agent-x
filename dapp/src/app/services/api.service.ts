@@ -19,11 +19,18 @@ export class ApiService {
     endpoint: string,
     prompt: string
   ): Observable<{ success: boolean; fullResponse: string }> {
+    const token = localStorage.getItem('idToken');
+
+    const headers = new HttpHeaders({
+      Authorization: `Bearer ${token}`,
+      'Content-Type': 'application/json',
+    });
     return this.http.post<{ success: boolean; fullResponse: string }>(
       `${BaseAPIUrl}/${endpoint}`,
       {
         prompt,
-      }
+      },
+      { headers, withCredentials: true }
     );
   }
 

@@ -8,7 +8,7 @@
 
 <div class="d-flex">
     <!-- Sidebar -->
-    <div class="sidebar p-3" style="min-width: 15%; max-width: 100%;">
+    <div class="sidebar p-3" style="min-width: 15%; max-width: 100%;" *ngIf="!(isHomePage | async)">
         <div class="d-flex justify-content-between align-items-center">
             <h4 class="me-4 fs-1">Agent-X</h4>
             <button class="btn btn-outline-primary btn-small">

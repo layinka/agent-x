@@ -1,31 +1,42 @@
 import { Component, inject } from '@angular/core';
-import { RouterLink, RouterOutlet } from '@angular/router';
+import { Router, RouterLink, RouterOutlet } from '@angular/router';
 import { NgxSpinnerModule, NgxSpinnerService } from 'ngx-spinner';
 import { ToastsComponent } from './toasts/toasts.component';
 import { GoogleLoginProvider, GoogleSigninButtonDirective, SocialAuthService, SocialUser } from '@abacritt/angularx-social-login';
-import { NgIf } from '@angular/common';
+import { CommonModule, NgIf } from '@angular/common';
 import { ApiService } from './services/api.service';
 import { NgbDropdown, NgbDropdownItem, NgbDropdownModule, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { WalletKeyModalComponent } from './wallet-key-modal/wallet-key-modal.component';
 import { UserService } from './services/user.service';
+import { BehaviorSubject } from 'rxjs';
 
 
 @Component({
   selector: 'app-root',
   imports: [RouterOutlet, RouterLink, NgxSpinnerModule, ToastsComponent, GoogleSigninButtonDirective, NgIf, 
-     NgbDropdownModule
+     NgbDropdownModule, CommonModule
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
 })
 export class AppComponent {
   title = 'my-app';
+  isHomePage = new BehaviorSubject<boolean>(false);
+
   ngxSpinner = inject(NgxSpinnerService)
   authService = inject( SocialAuthService)
   apiService = inject(ApiService)
   private modalService = inject(NgbModal);
-  userService =inject (UserService);
+  userService = inject( UserService );
+  private router = inject( Router )
 
+  constructor()
+  {
+    this.router.events.subscribe( () =>
+    {
+    this.isHomePage.next(this.router.url === '/')
+  })
+}
 
   authStateSubscription: any;
 
