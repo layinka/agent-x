@@ -12,6 +12,12 @@ export const routes: Routes = [
     pathMatch: 'full',
   },
   {
+    path: 'chat/:chatType',
+    title: 'Agent X',
+    component: AiChatComponent,
+    pathMatch: 'full',
+  },
+  {
     path: 'chat',
     title: 'Agent X',
     component: AiChatComponent,

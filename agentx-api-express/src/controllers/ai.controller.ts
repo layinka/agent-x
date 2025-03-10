@@ -156,7 +156,7 @@ export class AIController {
    *       content:
    *         application/json:
    *           schema:
-   *             $ref: '#/components/schemas/AIPrompt'
+   *             $ref: '#/components/schemas/AIPromptWithMessageDTO'
    *     responses:
    *       201:
    *         description: Prompt completed successfully
@@ -165,7 +165,7 @@ export class AIController {
    *             schema:
    *               $ref: '#/components/schemas/AIPromptResponse'
    *       401:
-   *          Authorization failed
+   *          description: Authorization failed
    *       500:
    *         description: Internal server error
    */
@@ -183,10 +183,16 @@ export class AIController {
         walletSecret as `0x${string}`, // process.env.WALLET_PRIVATE_KEY  as `0x${string}`
       );
       
+      // const walletClient = createWalletClient({
+      //   account: account,
+      //   transport: http('http://localhost:8545'),//'https://ethereum-sepolia-rpc.publicnode.com'
+      //   chain: hardhat,
+      // });
+
       const walletClient = createWalletClient({
         account: account,
-        transport: http('http://localhost:8545'),//'https://ethereum-sepolia-rpc.publicnode.com'
-        chain: hardhat,
+        transport: http('https://sonic-rpc.publicnode.com:443'), // http('http://localhost:8545'),//'https://ethereum-sepolia-rpc.publicnode.com'
+        chain: sonic,
       });
       
 
@@ -290,7 +296,7 @@ export class AIController {
    *             $ref: '#/components/schemas/AIPrompt'
    *     responses:
    *       201:
-   *         description: Prmopt completed successfully
+   *         description: Prompt completed successfully
    *         content:
    *           application/json:
    *             schema:

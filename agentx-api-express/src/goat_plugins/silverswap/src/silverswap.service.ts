@@ -36,10 +36,15 @@ import {
 //         throw new Error(`Failed to resolve ENS name: ${error}`);
 //     }
 // }
-//Silverswap - SonicBlaze
+// Silverswap - SonicBlaze
 const SWAP_ROUTER_ADDRESS = "0x0Bb909b7c3817F8fB7188e8fbaA2763028956E30";
 const POSITION_MANAGER_ADDRESS = "0xEcA3eDfD09435C2C7D2583124ca9a44f82aF1e8b";
 const FACTORY_ADDRESS = "0x9C5Dd70D98e9B321217e8232235e25E64E78C595";
+
+// //Silverswap - SonicBlaze
+// const SWAP_ROUTER_ADDRESS = "0x4882198dd2064D1E35b24735e6B9E5e3B45AcD6b";
+// const POSITION_MANAGER_ADDRESS = "0x5084E9fDF9264489A14E77c011073D757e572bB4";
+// const FACTORY_ADDRESS = "0xb860200BD68dc39cEAfd6ebb82883f189f4CdA76";
 
 export class SilverSwapService {
     @Tool({

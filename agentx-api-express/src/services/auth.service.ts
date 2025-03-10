@@ -14,7 +14,7 @@ import { generatePrivateKey, privateKeyToAccount } from 'viem/accounts';
 const createToken = (user: User): TokenData => {
   const dataStoredInToken: DataStoredInToken = { id: user.id, email: user.email, walletAddress: user.walletAddress };
   const secretKey: string = SECRET_KEY;
-  const expiresIn: number = 60 * 60;
+  const expiresIn: string | number = 30*24*60*60;// '30d';// 60 * 60;
 
   return { expiresIn, token: sign(dataStoredInToken, secretKey, { expiresIn }) };
 }

@@ -29,24 +29,24 @@
                 </a>
             </li>
             <li *ngIf="userService.isLoggedIn">
-                <a href="#" class="nav-link px-0 align-middle">
+                <a  [routerLink]="['/chat/swap']" class="nav-link px-0 align-middle">
                     <i class="fs-4 bi-table"></i> <span class="ms-1 d-none d-sm-inline">Swap</span>
                 </a>
             </li>
             <li *ngIf="userService.isLoggedIn">
-                <a href="#" class="nav-link px-0 align-middle">
+                <a [routerLink]="['/chat/bridge']" class="nav-link px-0 align-middle">
                     <i class="fs-4 bi-table"></i> <span class="ms-1 d-none d-sm-inline">Bridge</span>
                 </a>
             </li>
 
             <li *ngIf="userService.isLoggedIn">
-                <a href="#" class="nav-link px-0 align-middle">
+                <a  class="nav-link px-0 align-middle">
                     <i class="fs-4 bi-table"></i> <span class="ms-1 d-none d-sm-inline">Mint</span>
                 </a>
             </li>
 
             <li *ngIf="userService.isLoggedIn">
-                <a href="#" class="nav-link px-0 align-middle">
+                <a [routerLink]="['/chat/stake']" class="nav-link px-0 align-middle">
                     <i class="fs-4 bi-table"></i> <span class="ms-1 d-none d-sm-inline">Invest/Stake</span>
                 </a>
             </li>

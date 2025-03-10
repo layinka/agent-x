@@ -124,7 +124,7 @@ export class App {
               },
             },
 
-            UserMessagePromptDTO: {
+            AIPromptWithMessageDTO: {
               type: 'object',
               properties: {
                 messages: {

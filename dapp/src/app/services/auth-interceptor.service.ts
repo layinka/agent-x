@@ -10,9 +10,9 @@ export const AuthInterceptorService: HttpInterceptorFn = (request, next) => {
   
   const userService = inject(UserService);
 
-  console.log("AUTHINTRC:: ", userService.isLoggedIn)
+  // console.log("AUTHINTRC:: ", userService.isLoggedIn)
 
-  if(userService.isLoggedIn && ( request.url.startsWith('http://localhost:') || request.url.startsWith('https://localhost:') || request.url.startsWith('https://agentx') ||  request.url.startsWith('https://api.agentx')) ) {
+  if(userService.isLoggedIn && ( request.url.startsWith('http://localhost:') || request.url.startsWith('https://localhost:') || request.url.toLowerCase().startsWith('https://agentxapi.') ||  request.url.toLowerCase().startsWith('https://api.agentx.')) ) {
     
     request = request.clone({
       setHeaders: {

@@ -15,22 +15,19 @@ export class ApiService {
 
   constructor(private http: HttpClient) {}
 
-  submitPrompt(
-    endpoint: string,
-    prompt: string
-  ): Observable<{ success: boolean; fullResponse: string }> {
-    const token = localStorage.getItem('idToken');
+  submitPrompt( messages: any): Observable<{ success: boolean; fullResponse: string }> {
+    // const token = localStorage.getItem('idToken');
 
-    const headers = new HttpHeaders({
-      Authorization: `Bearer ${token}`,
-      'Content-Type': 'application/json',
-    });
+    // const headers = new HttpHeaders({
+    //   Authorization: `Bearer ${token}`,
+    //   'Content-Type': 'application/json',
+    // });
     return this.http.post<{ success: boolean; fullResponse: string }>(
-      `${BaseAPIUrl}/${endpoint}`,
+      `${BaseAPIUrl}/ai/prompt`,
       {
-        prompt,
+        messages: messages,
       },
-      { headers, withCredentials: true }
+      // { headers, withCredentials: true }
     );
   }
 

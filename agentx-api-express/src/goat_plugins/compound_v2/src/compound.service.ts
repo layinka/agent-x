@@ -73,7 +73,7 @@ export class CompoundService {
   //     const { asset, amount } = params;
   //     const chain = wallet.getChain();
 
-  //     const isNativeAsset = asset=='ETH' || asset=='SONIC';
+  //     const isNativeAsset = asset=='ETH' || asset.toUpperCase()=='SONIC';
       
 
   //     // Get token address from config
@@ -165,7 +165,7 @@ export class CompoundService {
 
     @Tool({
         name: "compound_supply_asset",
-        description: "Supply an asset to Compound V2.",
+        description: "Supply an asset to Compound V2 and MachFi.",
     })
     async supplyAsset(wallet: EVMWalletClient, params: SupplyAssetParameters): Promise<string> {
         
@@ -176,7 +176,7 @@ export class CompoundService {
 
 
 
-        const isNativeAsset = asset=='ETH' || asset=='SONIC';
+        const isNativeAsset = asset=='ETH' || asset.toUpperCase()=='SONIC';
         
 
         // Get token address from config
@@ -242,7 +242,7 @@ export class CompoundService {
 
     @Tool({
         name: "compound_redeem_asset",
-        description: "Redeem an asset from Compound V2.",
+        description: "Redeem an asset from Compound V2 and MachFi.",
     })
     async redeemAsset(wallet: EVMWalletClient, params: RedeemAssetParameters): Promise<string> {
         
@@ -280,7 +280,7 @@ export class CompoundService {
 
     @Tool({
         name: "compound_enter_market",
-        description: "Enable collateral for an asset on Compound V2",
+        description: "Enable collateral for an asset on Compound V2 and MachFi",
     })
     async enterMarkets(wallet: EVMWalletClient, params: EnterMarketParameters): Promise<string> {
     
@@ -313,7 +313,7 @@ export class CompoundService {
 
     @Tool({
         name: "compound_borrow_asset",
-        description: "Borrow an asset from Compound V2",
+        description: "Borrow an asset from Compound V2 and MachFi",
     })
     async borrowAsset(wallet: EVMWalletClient, params: BorrowAssetParameters): Promise<{
         liquidity: any;
@@ -418,7 +418,7 @@ export class CompoundService {
 
     @Tool({
         name: "compound_repay_asset",
-        description: "Repay a loan an asset from Compound V2",
+        description: "Repay a loan an asset from Compound V2 and MachFi",
     })
     async repayAssetLoan(wallet: EVMWalletClient, params: RepayLoanParameters): Promise<{
         liquidity: any;
@@ -436,7 +436,7 @@ export class CompoundService {
         
         const asset = cTokenAsset.substring(1).toUpperCase()
         
-        const isNativeAsset = asset=='ETH' || asset=='SONIC';
+        const isNativeAsset = asset=='ETH' || asset.toUpperCase()=='SONIC';
         const comptrollerAddress = compoundProtocolAddresses[chain.id]?.Comptroller;
         if (!comptrollerAddress) throw new Error("Comptroller not found");
 

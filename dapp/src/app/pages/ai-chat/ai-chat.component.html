@@ -2,14 +2,24 @@
     <button (click)="test()">Test</button>
 </div> -->
 
-<div class="chat-container d-flex flex-column position-relative" style="height: 96vh; overflow: hidden;">
+<div class="container" *ngIf="!userService.isLoggedIn" >
+    <div class="row">
+        <div class="col d-flex justify-content-center align-items-center" style="height: 80vh; ">
+            <div >
+                <asl-google-signin-button type='standard' size='medium' class="mx-1"></asl-google-signin-button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div *ngIf="userService.isLoggedIn" class="chat-container d-flex flex-column position-relative" style="height: 96vh; overflow: hidden;">
     <!-- Chat Messages (Scrollable) -->
     <div class="chat-messages flex-grow-1 overflow-auto p-3">
-        <div *ngFor="let msg of messages" class="d-flex mb-2"
-            [ngClass]="{'justify-content-end': msg.sender === 'user', 'justify-content-start': msg.sender === 'assistant'}">
+        <div *ngFor="let msg of messagesToBeShownToUsers" class="d-flex mb-2" 
+            [ngClass]="{'justify-content-end': msg.role === 'user', 'justify-content-start': (msg.role === 'assistant'||msg.role === 'agentX')}">
             <div class="message-bubble p-2 rounded"
-                [ngClass]="{'user-message': msg.sender === 'user', 'assistant-message': msg.sender === 'assistant'}">
-                <p class="bg-chat-box px-3 py-2 fs-6">{{ msg.text }}</p>
+                [ngClass]="{'user-message': msg.role === 'user', 'assistant-message': (msg.role === 'assistant'||msg.role === 'agentX')}">
+                <p class="bg-chat-box px-3 py-2 fs-6">{{ msg.content }}</p>
             </div>
         </div>
     </div>
@@ -18,7 +28,7 @@
     <div class="chat-input p-3 border-top w-100">
         <div class="container">
             <div class="input-group">
-                <textarea type="text" rows="3" class="form-control form-control-md" placeholder="Type a message..."
+                <textarea type="text" rows="3" class="form-control form-control-md" [placeholder]="promptPlaceholder"
                     [formControl]="promptInput"> </textarea>
                 <button class="btn btn-dark" type="button" (click)="sendPrompt()">
                     <i class="bi bi-send"></i>
