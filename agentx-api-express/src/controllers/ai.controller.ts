@@ -348,7 +348,7 @@ export class AIController {
           erc20({ tokens: [USDC, DAI, MODE, USDC0, USDC1] }), 
           defillama(),
           // debridge(),
-          // compound_v2(),
+          compound_v2(),
           silverswap() 
         ]
       });
@@ -393,8 +393,8 @@ export class AIController {
       //   prompt: 'Invent a new holiday and describe its traditions.',
       // });
   
-      // console.log('ToolCall:: ', await result.toolCalls);
-      // console.log('ToolResults :: ',await result.toolResults);
+      console.log('ToolCall:: ', await result.toolCalls);
+      console.log('ToolResults :: ',await result.toolResults);
   
       // result.pipeDataStreamToResponse(res);
   
