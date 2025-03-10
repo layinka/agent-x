@@ -36,15 +36,15 @@ import {
 //         throw new Error(`Failed to resolve ENS name: ${error}`);
 //     }
 // }
-// Silverswap - SonicBlaze
-const SWAP_ROUTER_ADDRESS = "0x0Bb909b7c3817F8fB7188e8fbaA2763028956E30";
-const POSITION_MANAGER_ADDRESS = "0xEcA3eDfD09435C2C7D2583124ca9a44f82aF1e8b";
-const FACTORY_ADDRESS = "0x9C5Dd70D98e9B321217e8232235e25E64E78C595";
+// // Silverswap - SonicBlaze
+// const SWAP_ROUTER_ADDRESS = "0x0Bb909b7c3817F8fB7188e8fbaA2763028956E30";
+// const POSITION_MANAGER_ADDRESS = "0xEcA3eDfD09435C2C7D2583124ca9a44f82aF1e8b";
+// const FACTORY_ADDRESS = "0x9C5Dd70D98e9B321217e8232235e25E64E78C595";
 
-// //Silverswap - SonicBlaze
-// const SWAP_ROUTER_ADDRESS = "0x4882198dd2064D1E35b24735e6B9E5e3B45AcD6b";
-// const POSITION_MANAGER_ADDRESS = "0x5084E9fDF9264489A14E77c011073D757e572bB4";
-// const FACTORY_ADDRESS = "0xb860200BD68dc39cEAfd6ebb82883f189f4CdA76";
+//Silverswap - Sonic
+const SWAP_ROUTER_ADDRESS = "0x4882198dd2064D1E35b24735e6B9E5e3B45AcD6b";
+const POSITION_MANAGER_ADDRESS = "0x5084E9fDF9264489A14E77c011073D757e572bB4";
+const FACTORY_ADDRESS = "0xb860200BD68dc39cEAfd6ebb82883f189f4CdA76";
 
 export class SilverSwapService {
     @Tool({
@@ -72,7 +72,21 @@ export class SilverSwapService {
 
             console.log('Approvehash::', approvalHash)
 
+
+
             const timestamp = Math.floor(Date.now() / 1000) + parameters.deadline;
+
+            console.log('Final args:',  [
+                {
+                    tokenIn: parameters.tokenInAddress,
+                    tokenOut: parameters.tokenOutAddress,
+                    recipient: walletClient.getAddress(),
+                    deadline: timestamp,
+                    amountIn: parameters.amountIn,
+                    amountOutMinimum: parameters.amountOutMinimum,
+                    limitSqrtPrice: parameters.limitSqrtPrice,
+                },
+            ])
 
             const hash = await walletClient.sendTransaction({
                 to: SWAP_ROUTER_ADDRESS,
@@ -95,7 +109,7 @@ export class SilverSwapService {
 
             return hash.hash;
         } catch (error) {
-            console.error('swap_exact_input_single_hop Error: ', error)
+            console.error('swap_exact_input_single_hop Error: ', error )// error
             throw Error(`Failed to swap exact input single hop: ${error}`);
 
         }

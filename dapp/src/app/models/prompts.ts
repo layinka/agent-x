@@ -101,7 +101,7 @@ export function getWelcomeMessage(chatType: 'swap'|'bridge'|'general'|'stake'|'l
         return 'Welcome!. Enter prompts below and AgentX will help you lend and borrow from Machfi on Sonic ';
     }
     else if(chatType=='stake'){
-        return 'Welcome!. Enter prompts below and AgentX will help you stake in different pools on Sonic ';
+        return 'Welcome!. Enter prompts below and AgentX will help you stake in different pools on Sonic. This is work in progress,and we plan to support automated strategies, yield optimization powered by AI, auto rebalancing etc ';
     }
     else{
         return "What can we do for you today? AgentX is here to help you with your Defi needs on Sonic"
