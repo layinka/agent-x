@@ -23,10 +23,7 @@ Periodic need to monitor DEFI announcements, discussions and charts, 24/7, for r
 
 
 ## AgentX Discord Server
-
-
-## Docs
-
+https://discord.gg/Kz73YCCxpY
 
 ### Tools/Frameworks
 Express JS, TypeScript, Vercel AI, Goat SDK
@@ -52,7 +49,7 @@ Defillama API
 Vercel AI SDK, GOAT SDK and Debridge API.
 
 ## AI Models
-Mistral APIs
+Mistral API
 
 ## Blockchain integration(s)
 Sonic mainnet
