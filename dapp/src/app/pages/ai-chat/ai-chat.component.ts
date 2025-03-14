@@ -6,7 +6,7 @@ import { firstValueFrom } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { UserService } from '../../services/user.service';
 import { GoogleSigninButtonDirective, SocialAuthService } from '@abacritt/angularx-social-login';
-import { NgxSpinnerModule } from 'ngx-spinner';
+import { NgxSpinnerModule, NgxSpinnerService } from 'ngx-spinner';
 import { ToastsComponent } from '../../toasts/toasts.component';
 import { ActivatedRoute } from '@angular/router';
 import { getExamplePromptForChatType, getPromptForChatType, getWelcomeMessage } from '../../models/prompts';
@@ -39,6 +39,7 @@ export class AiChatComponent {
   authService = inject(SocialAuthService);
   private modalService = inject(NgbModal);
   private route: ActivatedRoute = inject(ActivatedRoute);
+  spinner = inject(NgxSpinnerService)
   authStateSubscription: any;
   chatType: string=''
   ngOnInit(){
@@ -109,20 +110,30 @@ export class AiChatComponent {
 
     // Add user message to chat
     this.messages.push({ role: 'user', content: prompt });
-
+    this.spinner.show()
     
     // call the Api
     this.apiService.submitPrompt( this.messages.filter(f=> f.role !='agentX')).subscribe({
       next: (res) => {
-        console.log('AI Response', res.fullResponse);
-        const aiResponse = res.fullResponse
-          .replace(/^\|[-\s|]+\|$/gm, '')
-          .trim();
-        this.messages.push({
+        // console.log('AI Response', res.fullResponse);
+        if(res.fullResponse && res.fullResponse.length>1){
+          const aiResponse = res.fullResponse
+            .replace(/^\|[-\s|]+\|$/gm, '')
+            .trim();
+          this.messages.push({
+            
+            content: aiResponse,
+            role: 'assistant'
+          }) 
+        }else{
+          this.messages.push({
           
-          content: aiResponse,
-          role: 'assistant'
-        }) 
+            content: 'Something went wrong. Confirm on the Block explorer if your transaction went through or try again. \n Also confimr you have enough balance and approvals to carry out your operations',
+            role: 'agentX'
+          }) 
+        }
+
+        this.spinner.hide()
       },
       error: (error) => {
         console.error( 'Error', error );
@@ -132,6 +143,7 @@ export class AiChatComponent {
           content: 'An Error happened',
           role: 'assistant'
         }) 
+        this.spinner.hide()
       },
     });
 

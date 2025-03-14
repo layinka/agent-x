@@ -182,6 +182,10 @@ export class AIController {
       const account = privateKeyToAccount(
         walletSecret as `0x${string}`, // process.env.WALLET_PRIVATE_KEY  as `0x${string}`
       );
+
+    //   const account = privateKeyToAccount(
+    //     process.env.WALLET_PRIVATE_KEY  as `0x${string}`
+    //  );
       
       // const walletClient = createWalletClient({
       //   account: account,
@@ -189,9 +193,15 @@ export class AIController {
       //   chain: hardhat,
       // });
 
+      // const walletClient = createWalletClient({
+      //   account: account,
+      //   transport: http('https://sonic-rpc.publicnode.com:443'), // http('http://localhost:8545'),//'https://ethereum-sepolia-rpc.publicnode.com'
+      //   chain: sonic,
+      // });
+
       const walletClient = createWalletClient({
         account: account,
-        transport: http('https://sonic-rpc.publicnode.com:443'), // http('http://localhost:8545'),//'https://ethereum-sepolia-rpc.publicnode.com'
+        transport: http(), // http('http://localhost:8545'),//'https://ethereum-sepolia-rpc.publicnode.com'
         chain: sonic,
       });
       
@@ -221,7 +231,7 @@ export class AIController {
           //@ ts -ignore
           // sendETH(), 
           sendETH()  as unknown as PluginBase<EVMWalletClient>, 
-          erc20({ tokens: [USDC, DAI, MODE] }), 
+          erc20({ tokens: [USDC, DAI, MODE, USDC0, USDC1] }), 
           defillama(),
           debridge(),
           compound_v2(),
@@ -262,6 +272,20 @@ export class AIController {
         // process.stdout.write(delta);
       }
   
+      // if(!fullResponse || fullResponse.trim().length<1){
+      //   if(promptData.messages[promptData.messages.length - 1].content.toLowerCase().indexOf('swap') >-1){
+      //     return res.status(200).send({
+      //       success: true,
+      //       fullResponse: "Swap Completed Successfully" 
+      //     })
+      //   }
+      //   if(promptData.messages[promptData.messages.length - 1].content.toLowerCase().indexOf('deposit') >-1){
+      //     return res.status(200).send({
+      //       success: true,
+      //       fullResponse: "Deposit Completed Successfully" 
+      //     })
+      //   }
+      // }
       // const result = streamText({
       //   model: openai('gpt-4o'),
       //   prompt: 'Invent a new holiday and describe its traditions.',
