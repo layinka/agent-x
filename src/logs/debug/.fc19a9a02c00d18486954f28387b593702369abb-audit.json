@@ -1,0 +1,15 @@
+{
+    "keep": {
+        "days": false,
+        "amount": 30
+    },
+    "auditLog": "H:\\Projects\\Cryptos\\AI Agents\\agent-x\\agentx-api-express\\src\\logs\\debug\\.fc19a9a02c00d18486954f28387b593702369abb-audit.json",
+    "files": [
+        {
+            "date": 1742312601364,
+            "name": "H:\\Projects\\Cryptos\\AI Agents\\agent-x\\agentx-api-express\\src\\logs\\debug\\2025-03-18.log",
+            "hash": "a0417ebce719d0ad694d1b640a9d185757f43f191fd9379b7b89f7bb94e5fb36"
+        }
+    ],
+    "hashType": "sha256"
+}

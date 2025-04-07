@@ -1,0 +1,53 @@
+/*.sq3-wal
+/*.sq3
+/*.sq3-shm
+
+# compiled output
+.vscode
+/node_modules
+
+# code formatter
+.eslintrc
+.eslintignore
+.editorconfig
+.huskyrc
+.lintstagedrc.json
+.prettierrc
+
+/.env.development.local
+/.env.production
+/.env.production.local
+/.env.test.local
+
+
+# dependencies
+node_modules/
+
+# testing
+/coverage/
+
+# production
+/build/
+/dist/
+
+# environment
+.env
+.env.*
+!.env.example
+
+# editor
+.vscode/*
+!.vscode/extensions.json
+!.vscode/settings.json
+.idea/
+
+# typescript
+*.tsbuildinfo
+
+# debug
+.pnpm-debug.log*
+
+# os
+.DS_Store
+Thumbs.db
+/logs
